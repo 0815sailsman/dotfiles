@@ -1,6 +1,6 @@
 require("cyberdream").setup({
-    -- Enable transparent background
-    transparent = true,
+    -- Disable transparent background (use solid colorscheme background)
+    transparent = false,
 
     -- Enable italics comments
     italic_comments = true,
