@@ -55,6 +55,13 @@ return {
           map("<leader>e", vim.diagnostic.open_float, "Line Diagnostics")
 
           -- inlay hints (types/param names like IntelliJ), toggle with <leader>th
+          -- angularls returns out-of-range inlay hint positions that crash
+          -- nvim_buf_set_extmark. inlay_hint.enable() is buffer-scoped and
+          -- queries ALL capable clients, so we must strip the capability from
+          -- angularls itself; vtsls still provides hints on .ts buffers.
+          if client and client.name == "angularls" then
+            client.server_capabilities.inlayHintProvider = nil
+          end
           if client and client:supports_method("textDocument/inlayHint") then
             vim.lsp.inlay_hint.enable(true, { bufnr = buf })
             map("<leader>th", function()
