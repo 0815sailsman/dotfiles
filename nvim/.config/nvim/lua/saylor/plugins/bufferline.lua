@@ -12,6 +12,7 @@ return {
                 tab_size= 32,
                 offsets = {
                 {
+                    filetype = "neo-tree",
                     text_align = "center",
                     separator = false,
                 }
