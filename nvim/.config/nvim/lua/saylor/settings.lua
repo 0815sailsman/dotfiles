@@ -43,6 +43,16 @@ vim.opt.undofile = true
 -- System-Clipboard verwenden
 vim.o.clipboard = 'unnamedplus'
 
+-- IDE-friendly defaults
+vim.o.termguicolors = true       -- true color (LSP/treesitter highlights)
+vim.o.signcolumn = 'yes'         -- always show sign column (no text shift for diagnostics/git)
+vim.o.scrolloff = 8              -- keep context around the cursor
+vim.o.splitright = true          -- vertical splits open to the right
+vim.o.splitbelow = true          -- horizontal splits open below
+vim.o.updatetime = 250           -- faster CursorHold (diagnostics/hover)
+vim.o.timeoutlen = 400           -- which-key popup responsiveness
+vim.o.cursorline = true          -- highlight current line
+
 vim.filetype.add {
   extension = {
         rasi = 'rasi',
