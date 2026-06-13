@@ -39,3 +39,7 @@ export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 eval "$(zoxide init zsh)"
+
+. "$HOME/.local/share/../bin/env"
+
+eval "$(/home/saylor/.local/bin/mise activate zsh)" # added by https://mise.run/zsh
