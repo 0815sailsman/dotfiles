@@ -7,6 +7,29 @@ return {
     "MunifTanjim/nui.nvim",
   },
   cmd = "Neotree",
+  init = function()
+    -- Auto-open the explorer on the left at startup (IDE-style),
+    -- but stay out of the way for stdin pipes, diffs, and git commit/rebase buffers.
+    vim.api.nvim_create_autocmd("VimEnter", {
+      group = vim.api.nvim_create_augroup("saylor-neotree-autoopen", { clear = true }),
+      callback = function()
+        if vim.o.diff or vim.fn.argc() == -1 then
+          return
+        end
+        local ft = vim.bo.filetype
+        if ft == "gitcommit" or ft == "gitrebase" then
+          return
+        end
+        -- if launched on a directory, neo-tree's own hijack handles it
+        local first_arg = vim.fn.argv(0)
+        if type(first_arg) == "string" and vim.fn.isdirectory(first_arg) == 1 then
+          return
+        end
+        -- open the tree but keep the cursor in the main editor window
+        vim.cmd("Neotree show")
+      end,
+    })
+  end,
   keys = {
     { "<leader>fe", "<cmd>Neotree toggle reveal<cr>", desc = "Explorer (toggle)" },
     { "<leader>fo", "<cmd>Neotree focus<cr>", desc = "Explorer (focus)" },
